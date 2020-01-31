@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
 {
     Rigidbody2D rb;
     public float jumpforce = 1;
+    public float player_speed = 0.2f; 
     bool canjump = true;
 
     // Start is called before the first frame update
@@ -21,12 +22,8 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("space") && canjump) {
-            canjump = false;
 
-            rb.AddForce(Vector2.up * jumpforce);
-        }
-
+        Movement();
 
     }
 
@@ -39,9 +36,21 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void Teclas() {
-    
-    
-    
+    void Movement() {
+
+        if (Input.GetKeyDown("space") && canjump)
+        {
+            canjump = false;
+
+            rb.AddForce(Vector2.up * jumpforce);
+        }
+
+        Vector2 movement = Vector2.zero;
+
+        movement.x = Input.GetAxis("Horizontal");
+
+        transform.Translate(movement * player_speed * Time.deltaTime);
+
+
     }
 }
